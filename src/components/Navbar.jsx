@@ -1,29 +1,55 @@
-// Navbar.jsx
-// Ce composant affiche la barre de navigation
-// en haut de toutes les pages de l'app.
+// Navbar.jsx mis à jour avec React Router
+// Link remplace <a> pour la navigation
+// sans recharger la page — c'est ça la magie
+// d'une Single Page Application (SPA).
+
+import { Link, useLocation } from 'react-router-dom'
 
 function Navbar() {
+  const location = useLocation()
+
+  // Vérifie si on est sur cette page
+  function isActive(path) {
+    return location.pathname === path
+  }
+
   return (
     <nav className="navbar">
-
-      {/* ── LOGO ── */}
-      <div className="navbar-logo">
+      <Link to="/" className="navbar-logo">
         CodePulse
         <span className="navbar-logo-dot"></span>
-      </div>
+      </Link>
 
-      {/* ── LIENS ── */}
       <ul className="navbar-links">
-        <li><a href="#">Veille</a></li>
-        <li><a href="#">Sources</a></li>
-        <li><a href="#">Favoris</a></li>
+        <li>
+          <Link
+            to="/dashboard"
+            className={isActive('/dashboard') ? 'nav-link-active' : ''}
+          >
+            Veille
+          </Link>
+        </li>
+        <li>
+          <Link
+            to="/sources"
+            className={isActive('/sources') ? 'nav-link-active' : ''}
+          >
+            Sources
+          </Link>
+        </li>
+        <li>
+          <Link
+            to="/favoris"
+            className={isActive('/favoris') ? 'nav-link-active' : ''}
+          >
+            Favoris
+          </Link>
+        </li>
       </ul>
 
-      {/* ── BOUTON ── */}
-      <button className="navbar-cta">
-        Démarrer
-      </button>
-
+      <Link to="/dashboard">
+        <button className="navbar-cta">Démarrer</button>
+      </Link>
     </nav>
   )
 }

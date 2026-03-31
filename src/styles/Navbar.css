@@ -87,3 +87,19 @@
   border-color: rgba(168, 85, 247, 0.7);
   box-shadow: 0 0 20px rgba(168, 85, 247, 0.25);
 }
+/* Lien actif dans la navbar */
+.nav-link-active {
+  color: #34d399 !important;
+  position: relative;
+}
+
+.nav-link-active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #10b981, #06b6d4);
+  border-radius: 100px;
+}
