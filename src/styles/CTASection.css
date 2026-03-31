@@ -1,0 +1,82 @@
+/* CTASection.css */
+
+.cta-section {
+  padding: 80px 48px 120px;
+  text-align: center;
+  position: relative;
+}
+
+/* Halo de lumière violet derrière la carte */
+.cta-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 300px;
+  background: radial-gradient(
+    ellipse,
+    rgba(168, 85, 247, 0.14) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+/* La carte principale */
+.cta-card {
+  background: var(--glass);
+  border: 1px solid rgba(168, 85, 247, 0.18);
+  border-radius: 32px;
+  padding: 64px 48px;
+  max-width: 680px;
+  margin: 0 auto;
+  backdrop-filter: blur(30px);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Ligne lumineuse en haut */
+.cta-top-line {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(200, 132, 252, 0.55),
+    transparent
+  );
+}
+
+/* Titre */
+.cta-title {
+  font-family: var(--font-display);
+  font-size: 44px;
+  font-weight: 800;
+  letter-spacing: -1.5px;
+  line-height: 1.1;
+  margin-bottom: 18px;
+  background: linear-gradient(135deg, #f9a8d4, #c084fc, #818cf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Sous-titre */
+.cta-sub {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--text-muted);
+  line-height: 1.8;
+  max-width: 440px;
+  margin: 0 auto 40px;
+}
+
+/* Boutons */
+.cta-buttons {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+}

@@ -1,0 +1,89 @@
+/* Navbar.css */
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 48px;
+  border-bottom: 1px solid var(--glass-border);
+  backdrop-filter: blur(24px);
+  background: rgba(6, 0, 15, 0.5);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+/* ── LOGO ── */
+.navbar-logo {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 22px;
+  background: linear-gradient(120deg, #ff9de8, #c084fc, #818cf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.5px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Le petit point qui pulse à côté du logo */
+.navbar-logo-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  background: var(--pink);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--pink);
+  animation: dotPulse 2s ease-in-out infinite;
+}
+
+@keyframes dotPulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 10px var(--pink);
+  }
+  50% {
+    transform: scale(1.4);
+    box-shadow: 0 0 20px var(--pink), 0 0 40px rgba(255, 110, 199, 0.3);
+  }
+}
+
+/* ── LIENS ── */
+.navbar-links {
+  display: flex;
+  gap: 36px;
+  list-style: none;
+}
+
+.navbar-links a {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-muted);
+  transition: color 0.25s ease;
+}
+
+.navbar-links a:hover {
+  color: var(--candy-purple);
+}
+
+/* ── BOUTON ── */
+.navbar-cta {
+  background: rgba(168, 85, 247, 0.15);
+  border: 1px solid rgba(168, 85, 247, 0.35);
+  color: #e9d5ff;
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 9px 22px;
+  border-radius: 100px;
+  transition: all 0.28s ease;
+  letter-spacing: 0.4px;
+}
+
+.navbar-cta:hover {
+  background: rgba(168, 85, 247, 0.3);
+  border-color: rgba(168, 85, 247, 0.7);
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.25);
+}

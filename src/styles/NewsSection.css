@@ -1,0 +1,188 @@
+/* NewsSection.css */
+
+.news-section {
+  padding: 80px 48px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ── EN-TÊTE ── */
+.news-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.section-eyebrow {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--candy-purple);
+  margin-bottom: 10px;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: -1px;
+  color: var(--text-primary);
+  line-height: 1.1;
+}
+
+.title-gradient {
+  background: linear-gradient(135deg, #ff9de8, #c084fc, #818cf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── FILTRES ── */
+.news-filters {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  color: var(--text-muted);
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 8px 18px;
+  border-radius: 100px;
+  transition: all 0.25s ease;
+  letter-spacing: 0.3px;
+}
+
+.filter-btn:hover {
+  border-color: rgba(200, 132, 252, 0.35);
+  color: var(--candy-purple);
+}
+
+/* Filtre actif — le bouton sélectionné */
+.filter-active {
+  background: rgba(168, 85, 247, 0.2);
+  border-color: rgba(168, 85, 247, 0.5);
+  color: #e9d5ff;
+  box-shadow: 0 0 16px rgba(168, 85, 247, 0.2);
+}
+
+/* ── SCROLL HORIZONTAL ── */
+/* Le wrapper cache ce qui dépasse */
+.news-scroll-wrapper {
+  overflow-x: auto;
+  overflow-y: visible;
+  padding-bottom: 16px;
+  /* Cache la scrollbar sur Chrome/Safari */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(168, 85, 247, 0.3) transparent;
+}
+
+.news-scroll-wrapper::-webkit-scrollbar {
+  height: 4px;
+}
+
+.news-scroll-wrapper::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.news-scroll-wrapper::-webkit-scrollbar-thumb {
+  background: rgba(168, 85, 247, 0.3);
+  border-radius: 100px;
+}
+
+/* La piste de scroll — flex en ligne */
+.news-scroll-track {
+  display: flex;
+  gap: 16px;
+  /* Largeur minimale pour que les cartes débordent */
+  width: max-content;
+  padding: 8px 4px 8px;
+}
+
+/* ── CARTE D'ARTICLE ── */
+.news-card {
+  width: 300px;
+  min-height: 200px;
+  border-radius: 20px;
+  border: 1px solid;
+  padding: 24px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  backdrop-filter: blur(12px);
+  flex-shrink: 0;
+}
+
+.news-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* ── EN-TÊTE DE CARTE ── */
+.news-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.news-card-source {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.news-card-category {
+  font-family: var(--font-display);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 100px;
+}
+
+/* ── CONTENU ── */
+.news-card-title {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.4;
+  letter-spacing: -0.2px;
+  flex: 1;
+}
+
+.news-card-desc {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+/* ── MÉTA ── */
+.news-card-meta {
+  font-family: var(--font-body);
+  font-size: 11px;
+  color: rgba(210, 185, 255, 0.35);
+  font-weight: 400;
+  margin-top: auto;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
