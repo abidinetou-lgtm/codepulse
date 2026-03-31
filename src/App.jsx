@@ -18,7 +18,7 @@ import Navbar       from './components/Navbar'
 import Hero         from './components/Hero'
 import NewsSection  from './components/NewsSection'
 import Features     from './components/Features'
-import CTASection   from './components/CTASection'
+
 import Dashboard    from './pages/Dashboard'
 import Favorites    from './pages/Favorites'
 import Sources      from './pages/Sources'
@@ -28,7 +28,7 @@ import './styles/Navbar.css'
 import './styles/Hero.css'
 import './styles/NewsSection.css'
 import './styles/Features.css'
-import './styles/CTASection.css'
+
 import './styles/Dashboard.css'
 import './styles/Favorites.css'
 import './styles/Sources.css'
@@ -40,7 +40,7 @@ function LandingPage() {
       <Hero />
       <NewsSection />
       <Features />
-      <CTASection />
+      
     </>
   )
 }

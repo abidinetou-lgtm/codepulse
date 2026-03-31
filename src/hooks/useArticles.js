@@ -65,44 +65,50 @@ export function useArticles(source = 'all', tag = 'javascript') {
   const [error,    setError]    = useState(null)
 
   useEffect(() => {
-    async function loadArticles() {
-      setLoading(true)
-      setError(null)
+  async function loadArticles() {
+    setLoading(true)
+    setError(null)
 
-      try {
-        let results = []
+    try {
+      let results = []
 
-        if (source === 'all' || source === 'devto') {
-          const res  = await fetch(`${API_URL}/devto/articles?tag=${tag}&limit=8`)
-          const data = await res.json()
-          if (data.success) results = [...results, ...data.data]
-        }
-
-        if (source === 'all' || source === 'github') {
-          const res  = await fetch(`${API_URL}/github/trending`)
-          const data = await res.json()
-          if (data.success) results = [...results, ...data.data.slice(0, 6)]
-        }
-
-        if (source === 'all' || source === 'hackernews') {
-          const res  = await fetch(`${API_URL}/hackernews/top?limit=8`)
-          const data = await res.json()
-          if (data.success) results = [...results, ...data.data]
-        }
-
-        setArticles(results.length ? results : FALLBACK)
-
-      } catch {
-        // Backend pas démarré → on affiche les données de secours
-        setArticles(FALLBACK)
-        setError(null)
-      } finally {
-        setLoading(false)
+      if (source === 'all' || source === 'devto') {
+        const res  = await fetch(`${API_URL}/devto/articles?tag=${tag}&limit=8`)
+        const data = await res.json()
+        if (data.success) results = [...results, ...data.data]
       }
-    }
 
-    loadArticles()
-  }, [source, tag])
+      if (source === 'all' || source === 'github') {
+        const res  = await fetch(`${API_URL}/github/trending`)
+        const data = await res.json()
+        if (data.success) results = [...results, ...data.data.slice(0, 6)]
+      }
+
+      if (source === 'all' || source === 'hackernews') {
+        const res  = await fetch(`${API_URL}/hackernews/top?limit=8`)
+        const data = await res.json()
+        if (data.success) results = [...results, ...data.data]
+      }
+
+      setArticles(results.length ? results : FALLBACK)
+
+    } catch {
+      setArticles(FALLBACK)
+      setError(null)
+    } finally {
+      setLoading(false)
+    }
+  }
+// Charge immédiatement
+  loadArticles()
+
+  // Puis se rafraîchit toutes les 5 minutes automatiquement
+  const interval = setInterval(loadArticles, 5 * 60 * 1000)
+
+  // Nettoyage quand le composant se démonte
+  return () => clearInterval(interval)
+
+}, [source, tag])
 
   return { articles, loading, error }
 }
