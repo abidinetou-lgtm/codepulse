@@ -35,6 +35,7 @@ import './styles/Sources.css'
 
 import './styles/Responsive.css'
 
+
 // La landing page — assemblage de tous les composants
 function LandingPage() {
   return (

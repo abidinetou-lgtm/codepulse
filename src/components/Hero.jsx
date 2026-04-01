@@ -44,11 +44,15 @@ function Hero() {
         </div>
 
         {/* Boutons */}
+       {/* Boutons */}
         <div className="hero-buttons">
-      <Link to="/sources">
-     <button className="btn-primary">Explorer les sources</button>
-     </Link>
-     </div>
+          <Link to="/sources">
+            <button className="btn-primary">Explorer les sources</button>
+          </Link>
+        </div>
+
+    </div>
+      {/* ── FIN hero-left ── */}
 
       {/* ── COLONNE DROITE : illustration ── */}
       <div className="hero-right">
@@ -58,6 +62,13 @@ function Hero() {
     </section>
   )
 }
+
+      {/* ── COLONNE DROITE : illustration ── */}
+      <div className="hero-right">
+        <HeroIllustration />
+      </div>
+
+    
 
 // ── ILLUSTRATION ──
 // C'est un sous-composant — une pièce Lego
