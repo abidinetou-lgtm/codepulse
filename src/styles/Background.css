@@ -55,9 +55,10 @@
   border-radius: 16px;
   border: 1px solid;
   backdrop-filter: blur(20px);
+  background: rgba(6, 15, 12, 0.75) !important;
   box-shadow:
-    0 8px 32px rgba(0, 0, 0, 0.25),
-    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    0 8px 32px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
   animation: floatBadge var(--dur, 7s) ease-in-out infinite;
   animation-delay: var(--delay, 0s);
   white-space: nowrap;

@@ -3,7 +3,9 @@
 // "props" c'est comme des paramètres qu'on
 // pourrait passer au composant depuis App.jsx
 // On en verra plus tard — pour l'instant
-// tout est écrit directement ici.
+// tout est écrit directement ici.// En haut du fichier
+import { Link } from 'react-router-dom'
+
 
 function Hero() {
   return (
@@ -43,10 +45,10 @@ function Hero() {
 
         {/* Boutons */}
         <div className="hero-buttons">
-         <button className="btn-primary">Explorer les sources</button>
-        </div>
-
-      </div>
+      <Link to="/sources">
+     <button className="btn-primary">Explorer les sources</button>
+     </Link>
+     </div>
 
       {/* ── COLONNE DROITE : illustration ── */}
       <div className="hero-right">
