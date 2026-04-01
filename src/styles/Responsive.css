@@ -1,0 +1,305 @@
+/* Responsive.css */
+/* Les media queries s'appliquent quand l'écran
+   est plus petit que la taille indiquée.
+   768px = tablette / 480px = téléphone */
+
+/* ══════════════════════════════
+   TABLETTE (< 1024px)
+══════════════════════════════ */
+@media (max-width: 1024px) {
+
+  /* Hero */
+  .hero {
+    grid-template-columns: 1fr;
+    padding: 60px 32px 40px;
+    gap: 40px;
+    text-align: center;
+  }
+
+  .hero-title {
+    font-size: 46px;
+  }
+
+  .hero-right {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .hero-buttons {
+    justify-content: center;
+  }
+
+  .hero-badge {
+    margin: 0 auto 28px;
+  }
+
+  /* Features */
+  .feat-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Dashboard */
+  .dash-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Favoris */
+  .fav-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Sources */
+  .sources-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Navbar */
+  .navbar {
+    padding: 18px 32px;
+  }
+}
+
+/* ══════════════════════════════
+   MOBILE (< 768px)
+══════════════════════════════ */
+@media (max-width: 768px) {
+
+  /* ── NAVBAR ── */
+  .navbar {
+    padding: 16px 20px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .navbar-links {
+    gap: 20px;
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    padding: 8px 0;
+    border-top: 1px solid var(--glass-border);
+  }
+
+  .navbar-links a {
+    font-size: 12px;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 40px 20px 32px;
+    gap: 32px;
+  }
+
+  .hero-title {
+    font-size: 36px;
+    letter-spacing: -1px;
+  }
+
+  .hero-desc {
+    font-size: 14px;
+  }
+
+  .hero-right {
+    display: none;
+  }
+
+  /* ── NEWS SECTION ── */
+  .news-section {
+    padding: 48px 20px;
+  }
+
+  .news-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .section-title {
+    font-size: 28px;
+  }
+
+  .news-filters {
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    flex-wrap: nowrap;
+  }
+
+  .filter-btn {
+    flex-shrink: 0;
+    font-size: 11px;
+    padding: 7px 14px;
+  }
+
+  .news-card {
+    width: 260px;
+  }
+
+  /* ── FEATURES ── */
+  .features {
+    padding: 48px 20px;
+  }
+
+  .feat-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* ── DASHBOARD ── */
+  .dashboard {
+    padding: 32px 20px 60px;
+  }
+
+  .dash-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .dash-title {
+    font-size: 28px;
+  }
+
+  .dash-filters {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .filter-group {
+    width: 100%;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 4px;
+  }
+
+  .filter-btn,
+  .tag-btn {
+    flex-shrink: 0;
+  }
+
+  .dash-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* ── FAVORIS ── */
+  .favorites-page {
+    padding: 32px 20px 60px;
+  }
+
+  .fav-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .fav-title {
+    font-size: 28px;
+  }
+
+  .fav-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .fav-empty {
+    padding: 60px 20px;
+  }
+
+  /* ── SOURCES ── */
+  .sources-page {
+    padding: 32px 20px 60px;
+  }
+
+  .sources-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .sources-title {
+    font-size: 28px;
+  }
+
+  .sources-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sources-filter-group {
+    width: 100%;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+  }
+
+  /* ── CTA ── */
+  .cta-section {
+    padding: 48px 20px 80px;
+  }
+
+  .cta-card {
+    padding: 40px 24px;
+  }
+
+  .cta-title {
+    font-size: 30px;
+  }
+
+  .cta-buttons {
+    flex-direction: column;
+  }
+
+  /* ── BADGES FLOTTANTS ── */
+  /* Sur mobile on cache la moitié des badges
+     pour ne pas surcharger l'écran */
+  .float-badge:nth-child(n+6) {
+    display: none;
+  }
+
+  .float-badge {
+    padding: 8px 14px;
+    border-radius: 12px;
+  }
+
+  .float-badge-name {
+    font-size: 11px;
+  }
+
+  .float-badge-sub {
+    display: none;
+  }
+
+  .float-badge-icon {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+/* ══════════════════════════════
+   PETIT MOBILE (< 480px)
+══════════════════════════════ */
+@media (max-width: 480px) {
+
+  .hero-title {
+    font-size: 30px;
+  }
+
+  .navbar-links {
+    gap: 16px;
+  }
+
+  .news-card {
+    width: 240px;
+  }
+
+  .dash-title,
+  .fav-title,
+  .sources-title {
+    font-size: 24px;
+  }
+
+  .section-title {
+    font-size: 24px;
+  }
+
+  /* Cache tous les badges sur très petit écran */
+  .float-badge {
+    display: none;
+  }
+}
