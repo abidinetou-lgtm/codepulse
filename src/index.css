@@ -1,124 +1,171 @@
-/* ═══════════════════════════════════════════
-   index.css — Système de design CodePulse
-   C'est comme la "charte graphique" de l'app.
-   Toutes les couleurs et polices sont définies
-   ici une seule fois, et réutilisées partout.
-═══════════════════════════════════════════ */
-
-/* Import des polices Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap');
 
-/* ── VARIABLES CSS ──
-   Une variable CSS c'est comme une boîte
-   avec un nom. On met une couleur dedans,
-   et on l'utilise partout. Si on veut changer
-   la couleur rose, on la change UNE seule fois ici.
-*/
+/* ══════════════════════════════
+   VARIABLES — MODE CLAIR (défaut)
+══════════════════════════════ */
 :root {
-  /* ── NOUVELLES COULEURS : Vert & Bleu nuancés ── */
-  --primary:       #10b981;   /* vert émeraude */
-  --primary-soft:  #34d399;   /* vert clair */
-  --secondary:     #3b82f6;   /* bleu vif */
-  --secondary-soft:#60a5fa;   /* bleu clair */
-  --accent:        #06b6d4;   /* cyan */
-  --accent-soft:   #22d3ee;   /* cyan clair */
+  --primary:        #059669;
+  --primary-light:  #34d399;
+  --secondary:      #0284c7;
+  --secondary-light:#38bdf8;
+  --accent:         #0d9488;
 
-  /* Anciens alias — maintenant remappés */
-  --pink:          #10b981;
-  --violet:        #3b82f6;
-  --blue:          #06b6d4;
-  --candy-purple:  #34d399;
-  --neon-blue:     #60a5fa;
+  --bg:             #f0fdf4;
+  --bg-2:           #ffffff;
+  --bg-3:           #ecfdf5;
+  --surface:        #ffffff;
+  --surface-2:      #f0fdf4;
+  --border:         rgba(5, 150, 105, 0.15);
+  --border-strong:  rgba(5, 150, 105, 0.3);
 
-  /* Fond sombre avec teinte verte/bleue */
-  --dark-bg:       #020d0a;
-  --glass:         rgba(16, 185, 129, 0.04);
-  --glass-border:  rgba(52, 211, 153, 0.1);
+  --text-1:         #064e3b;
+  --text-2:         #065f46;
+  --text-muted:     #6b7280;
+  --text-light:     #9ca3af;
 
-  --text-primary:  #e0fdf4;
-  --text-muted:    rgba(110, 200, 170, 0.55);
+  --glass:          rgba(255, 255, 255, 0.7);
+  --glass-border:   rgba(5, 150, 105, 0.15);
 
-  --font-display:  'Space Grotesk', sans-serif;
-  --font-body:     'Plus Jakarta Sans', sans-serif;
+  --font-display:   'Space Grotesk', sans-serif;
+  --font-body:      'Plus Jakarta Sans', sans-serif;
+
+  --shadow-sm:  0 1px 3px rgba(0,0,0,0.08);
+  --shadow-md:  0 4px 16px rgba(0,0,0,0.1);
+  --shadow-lg:  0 12px 40px rgba(0,0,0,0.12);
+  --radius-sm:  8px;
+  --radius-md:  14px;
+  --radius-lg:  20px;
+  --radius-xl:  28px;
 }
 
-/* ── RESET ──
-   Par défaut les navigateurs ajoutent
-   des marges et paddings moches partout.
-   On remet tout à zéro proprement.
-*/
+/* ══════════════════════════════
+   MODE SOMBRE
+══════════════════════════════ */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg:             #020d0a;
+    --bg-2:           #041a12;
+    --bg-3:           #052e1c;
+    --surface:        rgba(6, 30, 20, 0.95);
+    --surface-2:      rgba(4, 20, 14, 0.9);
+    --border:         rgba(52, 211, 153, 0.12);
+    --border-strong:  rgba(52, 211, 153, 0.25);
+
+    --text-1:         #ecfdf5;
+    --text-2:         #d1fae5;
+    --text-muted:     rgba(110, 200, 170, 0.6);
+    --text-light:     rgba(110, 200, 170, 0.35);
+
+    --glass:          rgba(6, 20, 15, 0.85);
+    --glass-border:   rgba(52, 211, 153, 0.1);
+  }
+}
+
+/* ══════════════════════════════
+   RESET
+══════════════════════════════ */
 *, *::before, *::after {
-  margin: 0;
-  padding: 0;
+  margin: 0; padding: 0;
   box-sizing: border-box;
 }
 
-html {
-  scroll-behavior: smooth;
-}
+html { scroll-behavior: smooth; }
 
 body {
-  background-color: var(--dark-bg);
-  color: var(--text-primary);
+  background: var(--bg);
+  color: var(--text-1);
   font-family: var(--font-body);
   overflow-x: hidden;
   min-height: 100vh;
+  transition: background 0.3s ease;
 }
 
-/* ── UTILITAIRES ──
-   Des petites classes réutilisables
-   qu'on va utiliser dans tous les composants.
-*/
-button {
-  cursor: pointer;
-  border: none;
-  font-family: var(--font-body);
-}
+button { cursor: pointer; border: none; font-family: var(--font-body); }
+a { text-decoration: none; color: inherit; }
+img, svg { display: block; }
 
-a {
-  text-decoration: none;
-  color: inherit;
-}
-
-img, svg {
-  display: block;
-}
-/* app-content passe au-dessus du background */
+/* ══════════════════════════════
+   UTILITAIRES GLOBAUX
+══════════════════════════════ */
 .app-content {
   position: relative;
   z-index: 1;
-}/* Boutons plus visibles */
+}
+
 .btn-primary {
-  opacity: 1 !important;
-  background: linear-gradient(
-    135deg,
-    rgba(16, 185, 129, 0.4),
-    rgba(6, 182, 212, 0.35)
-  ) !important;
-  border-color: rgba(52, 211, 153, 0.6) !important;
-  color: #e0fdf4 !important;
-  box-shadow: 0 4px 20px rgba(16, 185, 129, 0.2);
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  border: none;
+  color: white;
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 13px 28px;
+  border-radius: 100px;
+  transition: all 0.25s ease;
+  letter-spacing: 0.3px;
+  box-shadow: 0 4px 16px rgba(5, 150, 105, 0.25);
 }
 
 .btn-primary:hover {
-  background: linear-gradient(
-    135deg,
-    rgba(16, 185, 129, 0.6),
-    rgba(6, 182, 212, 0.55)
-  ) !important;
-  box-shadow: 0 8px 32px rgba(16, 185, 129, 0.35) !important;
   transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(5, 150, 105, 0.35);
 }
 
 .btn-secondary {
-  opacity: 1 !important;
-  background: rgba(255, 255, 255, 0.06) !important;
-  border-color: rgba(255, 255, 255, 0.15) !important;
-  color: rgba(200, 240, 220, 0.8) !important;
+  background: var(--glass);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 13px 24px;
+  border-radius: 100px;
+  transition: all 0.25s ease;
+  backdrop-filter: blur(10px);
 }
 
 .btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.1) !important;
-  border-color: rgba(255, 255, 255, 0.25) !important;
+  border-color: var(--border-strong);
+  color: var(--text-1);
 }
 
+/* Filtre actif */
+.filter-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 7px 16px;
+  border-radius: 100px;
+  transition: all 0.2s ease;
+}
+
+.filter-btn:hover {
+  border-color: var(--primary-light);
+  color: var(--primary);
+}
+
+.filter-active {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: white !important;
+  box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);
+}
+
+/* Shimmer skeleton */
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@keyframes dotPulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 8px var(--primary); }
+  50%       { transform: scale(1.4); box-shadow: 0 0 20px var(--primary); }
+}
+
+@keyframes livePulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50%       { transform: scale(1.5); opacity: 0.5; }
+}

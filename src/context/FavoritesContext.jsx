@@ -1,63 +1,125 @@
 // FavoritesContext.jsx
-// Le Context c'est comme un sac à dos partagé.
-// N'importe quel composant peut y mettre des choses
-// ou en prendre, sans passer par les props.
-//
-// Ici on stocke les articles favoris dans localStorage.
-// localStorage = une mini base de données dans le navigateur.
-// Les données restent même si tu fermes l'onglet !
+// Maintenant les favoris sont sauvegardés dans Supabase
+// si l'utilisateur est connecté.
+// Sinon on utilise localStorage comme avant.
 
 import { createContext, useContext, useState, useEffect } from 'react'
+import { supabase } from '../lib/supabase'
+import { useAuth } from './AuthContext'
 
-// 1. On crée le contexte — c'est juste un "conteneur vide"
 const FavoritesContext = createContext()
 
-// 2. Le Provider — c'est lui qui FOURNIT les données
-// à tous les composants enfants.
-// On l'utilisera dans App.jsx pour entourer toute l'app.
 export function FavoritesProvider({ children }) {
-  const [favorites, setFavorites] = useState(() => {
-    // On initialise depuis localStorage au démarrage.
-    // Le "() =>" s'appelle une "lazy initializer" —
-    // React n'exécute cette fonction qu'une seule fois.
+  const { user, isLoggedIn } = useAuth()
+  const [favorites, setFavorites] = useState([])
+  const [loading,   setLoading]   = useState(false)
+
+  // Charge les favoris depuis Supabase ou localStorage
+  useEffect(() => {
+    if (isLoggedIn) {
+      loadFromSupabase()
+    } else {
+      loadFromLocalStorage()
+    }
+  }, [isLoggedIn, user])
+
+  function loadFromLocalStorage() {
     try {
       const saved = localStorage.getItem('codepulse_favorites')
-      return saved ? JSON.parse(saved) : []
+      setFavorites(saved ? JSON.parse(saved) : [])
     } catch {
-      return []
+      setFavorites([])
     }
-  })
-
-  // Chaque fois que favorites change, on sauvegarde
-  // automatiquement dans localStorage.
-  useEffect(() => {
-    localStorage.setItem('codepulse_favorites', JSON.stringify(favorites))
-  }, [favorites])
-
-  // Ajouter un article aux favoris
-  function addFavorite(article) {
-    setFavorites(prev => {
-      // On vérifie qu'il n'est pas déjà dans les favoris
-      const exists = prev.find(f => f.id === article.id)
-      if (exists) return prev
-      return [...prev, article]
-    })
   }
 
-  // Supprimer un article des favoris
-  function removeFavorite(id) {
+  async function loadFromSupabase() {
+    setLoading(true)
+    try {
+      const { data, error } = await supabase
+        .from('favorites')
+        .select('*')
+        .order('created_at', { ascending: false })
+
+      if (!error && data) {
+        // On transforme les données Supabase en format article
+        const articles = data.map(fav => ({
+          id:          fav.article_id,
+          source:      fav.source,
+          sourceLabel: fav.source_label,
+          title:       fav.title,
+          desc:        fav.description,
+          url:         fav.url,
+          cover:       fav.cover,
+          meta:        fav.meta,
+          color:       fav.color,
+          accent:      fav.accent,
+          border:      fav.border,
+          tags:        fav.tags || [],
+        }))
+        setFavorites(articles)
+      }
+    } catch (err) {
+      console.error('Supabase favorites error:', err)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  async function addFavorite(article) {
+    // Évite les doublons
+    const exists = favorites.find(f => f.id === article.id)
+    if (exists) return
+
+    // Mise à jour optimiste — on ajoute immédiatement
+    setFavorites(prev => [article, ...prev])
+
+    if (isLoggedIn) {
+      // Sauvegarde dans Supabase
+      await supabase.from('favorites').insert({
+        user_id:      user.id,
+        article_id:   String(article.id),
+        source:       article.source,
+        source_label: article.sourceLabel,
+        title:        article.title,
+        description:  article.desc,
+        url:          article.url,
+        cover:        article.cover,
+        meta:         article.meta,
+        color:        article.color,
+        accent:       article.accent,
+        border:       article.border,
+        tags:         article.tags || [],
+      })
+    } else {
+      // Sauvegarde dans localStorage
+      const updated = [article, ...favorites]
+      localStorage.setItem('codepulse_favorites', JSON.stringify(updated))
+    }
+  }
+
+  async function removeFavorite(id) {
     setFavorites(prev => prev.filter(f => f.id !== id))
+
+    if (isLoggedIn) {
+      await supabase
+        .from('favorites')
+        .delete()
+        .eq('user_id', user.id)
+        .eq('article_id', String(id))
+    } else {
+      const updated = favorites.filter(f => f.id !== id)
+      localStorage.setItem('codepulse_favorites', JSON.stringify(updated))
+    }
   }
 
-  // Vérifier si un article est déjà en favori
   function isFavorite(id) {
-    return favorites.some(f => f.id === id)
+    return favorites.some(f => f.id === id || f.id === String(id))
   }
 
-  // Tout ce qu'on rend accessible aux composants enfants
   return (
     <FavoritesContext.Provider value={{
       favorites,
+      loading,
       addFavorite,
       removeFavorite,
       isFavorite,
@@ -67,9 +129,6 @@ export function FavoritesProvider({ children }) {
   )
 }
 
-// 3. Hook personnalisé pour utiliser le contexte facilement.
-// Au lieu d'écrire useContext(FavoritesContext) partout,
-// on écrit juste useFavorites().
 export function useFavorites() {
   return useContext(FavoritesContext)
 }

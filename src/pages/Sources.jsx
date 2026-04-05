@@ -1,7 +1,3 @@
-// Sources.jsx
-// Affiche toutes les sources disponibles
-// avec leur statut et des infos sur chaque API.
-
 import { useState } from 'react'
 import '../styles/Sources.css'
 
@@ -9,16 +5,16 @@ const SOURCES_DATA = [
   {
     id: 'github',
     name: 'GitHub',
-    desc: 'Repos tendance, nouveaux projets open source, releases importantes.',
-    color: '#60a5fa',
-    bg: 'rgba(96,165,250,0.08)',
-    border: 'rgba(96,165,250,0.2)',
+    desc: 'Repos tendance, nouveaux projets open source, releases importantes. Filtrable par langage de programmation.',
+    color: '#34d399',
+    bg: 'rgba(52,211,153,0.06)',
+    border: 'rgba(52,211,153,0.18)',
     status: 'active',
     articles: '500+ repos/jour',
     endpoint: '/api/github/trending',
     tags: ['trending', 'open-source', 'code'],
     icon: (
-      <svg viewBox="0 0 24 24" width="22" height="22" fill="#60a5fa">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="#34d399">
         <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
       </svg>
     ),
@@ -26,10 +22,10 @@ const SOURCES_DATA = [
   {
     id: 'devto',
     name: 'Dev.to',
-    desc: 'Articles, tutoriels et discussions de la communauté dev mondiale.',
+    desc: 'Articles, tutoriels et discussions de la communauté dev mondiale. Filtrable par tag : react, javascript, node, AI...',
     color: '#22d3ee',
-    bg: 'rgba(6,182,212,0.08)',
-    border: 'rgba(6,182,212,0.2)',
+    bg: 'rgba(6,182,212,0.06)',
+    border: 'rgba(6,182,212,0.18)',
     status: 'active',
     articles: '1000+ articles/jour',
     endpoint: '/api/devto/articles',
@@ -43,70 +39,69 @@ const SOURCES_DATA = [
   {
     id: 'hackernews',
     name: 'Hacker News',
-    desc: 'Les meilleures discussions tech, startups et science du moment.',
-    color: '#34d399',
-    bg: 'rgba(52,211,153,0.08)',
-    border: 'rgba(52,211,153,0.2)',
+    desc: 'Les meilleures discussions tech, startups et science du moment. Top stories triées par popularité.',
+    color: '#60a5fa',
+    bg: 'rgba(96,165,250,0.06)',
+    border: 'rgba(96,165,250,0.18)',
     status: 'active',
     articles: '500+ stories/jour',
     endpoint: '/api/hackernews/top',
     tags: ['news', 'startups', 'tech'],
     icon: (
-      <svg viewBox="0 0 24 24" width="22" height="22" fill="#34d399">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="#60a5fa">
         <path d="M0 24V0h24v24H0zM6.951 5.896l4.112 7.708v5.064h1.583v-4.972l4.148-7.799h-1.749l-2.457 4.875c-.372.745-.688 1.434-.688 1.434s-.297-.708-.651-1.434L8.831 5.896h-1.88z"/>
       </svg>
     ),
   },
   {
-    id: 'npm',
-    name: 'NPM Trends',
-    desc: 'Tendances des packages npm, nouvelles releases et statistiques.',
-    color: '#f87171',
-    bg: 'rgba(248,113,113,0.06)',
-    border: 'rgba(248,113,113,0.15)',
+    id: 'newsletter',
+    name: 'Newsletter quotidienne',
+    desc: 'Reçois chaque matin un résumé des meilleurs articles de la veille directement dans ta boîte mail.',
+    color: '#c084fc',
+    bg: 'rgba(192,132,252,0.06)',
+    border: 'rgba(192,132,252,0.18)',
     status: 'coming',
-    articles: 'Bientôt disponible',
-    endpoint: '/api/npm/trends',
-    tags: ['packages', 'releases', 'stats'],
+    articles: '1 email / jour',
+    endpoint: 'Email automatique',
+    tags: ['email', 'digest', 'automatique'],
     icon: (
-      <svg viewBox="0 0 24 24" width="22" height="22">
-        <rect x="0" y="6" width="24" height="12" rx="1" fill="#cc3534"/>
-        <rect x="7" y="9" width="3" height="6" fill="white"/>
-        <rect x="17" y="9" width="1" height="6" fill="white"/>
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="#c084fc">
+        <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
       </svg>
     ),
   },
   {
-    id: 'producthunt',
-    name: 'Product Hunt',
-    desc: 'Les meilleurs nouveaux produits tech lancés chaque jour.',
+    id: 'search',
+    name: 'Recherche globale',
+    desc: 'Recherche instantanée dans tous les articles agrégés par mot-clé, technologie ou auteur.',
+    color: '#fbbf24',
+    bg: 'rgba(251,191,36,0.06)',
+    border: 'rgba(251,191,36,0.15)',
+    status: 'coming',
+    articles: 'Temps réel',
+    endpoint: '/api/search',
+    tags: ['search', 'filter', 'instant'],
+    icon: (
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#fbbf24" strokeWidth="2">
+        <circle cx="11" cy="11" r="8"/>
+        <path d="M21 21l-4.35-4.35"/>
+      </svg>
+    ),
+  },
+  {
+    id: 'rss',
+    name: 'Flux RSS custom',
+    desc: 'Ajoute n\'importe quelle source via son flux RSS. Blogs, podcasts, newsletters tech — tout centralisé.',
     color: '#fb923c',
     bg: 'rgba(251,146,60,0.06)',
     border: 'rgba(251,146,60,0.15)',
     status: 'coming',
-    articles: 'Bientôt disponible',
-    endpoint: '/api/producthunt/daily',
-    tags: ['products', 'startups', 'launches'],
+    articles: 'Illimité',
+    endpoint: '/api/rss',
+    tags: ['rss', 'custom', 'blogs'],
     icon: (
       <svg viewBox="0 0 24 24" width="22" height="22" fill="#fb923c">
-        <path d="M13.604 8.4h-3.405V12h3.405c.995 0 1.801-.806 1.801-1.8 0-.995-.806-1.8-1.801-1.8zM12 0C5.373 0 0 5.372 0 12c0 6.627 5.373 12 12 12 6.628 0 12-5.373 12-12 0-6.628-5.372-12-12-12zm1.604 14.4h-3.405V18H7.8V6h5.804c2.319 0 4.2 1.88 4.2 4.2 0 2.319-1.881 4.2-4.2 4.2z"/>
-      </svg>
-    ),
-  },
-  {
-    id: 'twitter',
-    name: 'X / Twitter Tech',
-    desc: 'Threads et discussions tech des développeurs influents.',
-    color: '#a78bfa',
-    bg: 'rgba(167,139,250,0.06)',
-    border: 'rgba(167,139,250,0.15)',
-    status: 'coming',
-    articles: 'Bientôt disponible',
-    endpoint: '/api/twitter/tech',
-    tags: ['social', 'threads', 'devs'],
-    icon: (
-      <svg viewBox="0 0 24 24" width="22" height="22" fill="#a78bfa">
-        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+        <path d="M6.18 15.64a2.18 2.18 0 010 4.36 2.18 2.18 0 010-4.36M4 4.44A15.56 15.56 0 0119.56 20h-2.83A12.73 12.73 0 004 7.27V4.44m0 5.66a9.9 9.9 0 019.9 9.9h-2.83A7.07 7.07 0 004 12.93V10.1z"/>
       </svg>
     ),
   },
@@ -114,13 +109,11 @@ const SOURCES_DATA = [
 
 function SourceCard({ source }) {
   const isActive = source.status === 'active'
-
   return (
     <div
       className={`source-card ${!isActive ? 'source-coming' : ''}`}
       style={{ borderColor: source.border, background: source.bg }}
     >
-      {/* En-tête */}
       <div className="source-card-top">
         <div className="source-card-icon" style={{ background: `${source.color}15` }}>
           {source.icon}
@@ -129,17 +122,11 @@ function SourceCard({ source }) {
           {isActive ? '● Actif' : '◌ Bientôt'}
         </span>
       </div>
-
-      {/* Nom + description */}
       <h3 className="source-name" style={{ color: source.color }}>{source.name}</h3>
       <p className="source-desc">{source.desc}</p>
-
-      {/* Stats */}
       <div className="source-stats">
         <span className="source-articles">{source.articles}</span>
       </div>
-
-      {/* Tags */}
       <div className="source-tags">
         {source.tags.map(tag => (
           <span key={tag} className="source-tag"
@@ -148,8 +135,6 @@ function SourceCard({ source }) {
           </span>
         ))}
       </div>
-
-      {/* Endpoint API */}
       <div className="source-endpoint">
         <span className="endpoint-label">Endpoint</span>
         <code className="endpoint-code">{source.endpoint}</code>
@@ -162,12 +147,12 @@ function Sources() {
   const [filter, setFilter] = useState('all')
   const active  = SOURCES_DATA.filter(s => s.status === 'active')
   const coming  = SOURCES_DATA.filter(s => s.status === 'coming')
-  const display = filter === 'active' ? active : filter === 'coming' ? coming : SOURCES_DATA
+  const display = filter === 'active' ? active
+                : filter === 'coming' ? coming
+                : SOURCES_DATA
 
   return (
     <div className="sources-page">
-
-      {/* ── EN-TÊTE ── */}
       <div className="sources-header">
         <div>
           <h1 className="sources-title">
@@ -177,7 +162,6 @@ function Sources() {
             {active.length} sources actives · {coming.length} en préparation
           </p>
         </div>
-
         <div className="sources-filter-group">
           {[
             { key: 'all',    label: 'Toutes' },
@@ -194,14 +178,11 @@ function Sources() {
           ))}
         </div>
       </div>
-
-      {/* ── GRILLE ── */}
       <div className="sources-grid">
         {display.map(source => (
           <SourceCard key={source.id} source={source} />
         ))}
       </div>
-
     </div>
   )
 }

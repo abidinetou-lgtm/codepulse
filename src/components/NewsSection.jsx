@@ -20,11 +20,9 @@ function SourceIcon({ source, color }) {
     ia:         'IA',
   }
   return (
-    <div className="news-card-icon" style={{
-      background: `${color}18`,
-      color,
-      width: 28, height: 28,
-      borderRadius: 8,
+    <div style={{
+      background: `${color}18`, color,
+      width: 28, height: 28, borderRadius: 8,
       display: 'flex', alignItems: 'center', justifyContent: 'center',
       fontSize: 10, fontWeight: 700,
       fontFamily: 'Space Grotesk, sans-serif',
@@ -39,9 +37,20 @@ function NewsCard({ article }) {
   return (
     <div
       className="news-card"
-      style={{ background: article.accent, borderColor: article.border }}
+      style={{ background: 'rgba(6,20,15,0.88)', borderColor: article.border }}
       onClick={() => window.open(article.url, '_blank')}
     >
+      {/* Image de couverture */}
+      {article.cover && (
+        <div className="news-card-cover">
+          <img
+            src={article.cover}
+            alt={article.title}
+            onError={e => { e.target.parentElement.style.display = 'none' }}
+          />
+        </div>
+      )}
+
       <div className="news-card-header">
         <div className="news-card-source" style={{ color: article.color }}>
           <SourceIcon source={article.source} color={article.color} />
@@ -68,17 +77,19 @@ function SkeletonCard() {
     <div className="news-card" style={{
       background: 'rgba(255,255,255,0.02)',
       borderColor: 'rgba(255,255,255,0.05)',
-      flexShrink: 0, width: 300,
+      flexShrink: 0, width: 300, minHeight: 200,
     }}>
+      <div style={{
+        width: '100%', height: 140, borderRadius: 12,
+        background: 'rgba(255,255,255,0.04)', marginBottom: 12,
+      }}/>
       {[35, 90, 70, 40].map((w, i) => (
         <div key={i} style={{
-          height: i === 1 ? 16 : 12,
-          width: `${w}%`,
-          borderRadius: 6,
+          height: i === 1 ? 16 : 12, width: `${w}%`,
+          borderRadius: 6, marginTop: i === 0 ? 0 : 10,
           background: 'linear-gradient(90deg, rgba(255,255,255,0.04) 25%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.04) 75%)',
           backgroundSize: '200% 100%',
           animation: 'shimmer 1.5s infinite',
-          marginTop: i === 0 ? 0 : 10,
         }}/>
       ))}
     </div>
@@ -122,7 +133,6 @@ function NewsSection() {
           }
         </div>
       </div>
-
     </section>
   )
 }

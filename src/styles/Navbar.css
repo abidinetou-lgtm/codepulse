@@ -1,59 +1,39 @@
-/* Navbar.css */
-
 .navbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 22px 48px;
-  border-bottom: 1px solid var(--glass-border);
-  backdrop-filter: blur(24px);
-  background: rgba(6, 0, 15, 0.5);
+  padding: 0 48px;
+  height: 64px;
+  border-bottom: 1px solid var(--border);
+  background: var(--glass);
+  backdrop-filter: blur(20px);
   position: sticky;
   top: 0;
   z-index: 100;
 }
 
-/* ── LOGO ── */
 .navbar-logo {
   font-family: var(--font-display);
-  font-weight: 800;
-  font-size: 22px;
-  background: linear-gradient(120deg, #ff9de8, #c084fc, #818cf8);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  letter-spacing: -0.5px;
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--primary);
   display: flex;
   align-items: center;
   gap: 6px;
+  letter-spacing: -0.5px;
 }
 
-/* Le petit point qui pulse à côté du logo */
 .navbar-logo-dot {
-  display: inline-block;
-  width: 7px;
-  height: 7px;
-  background: var(--pink);
+  width: 7px; height: 7px;
+  background: var(--primary);
   border-radius: 50%;
-  box-shadow: 0 0 10px var(--pink);
+  box-shadow: 0 0 8px var(--primary);
   animation: dotPulse 2s ease-in-out infinite;
 }
 
-@keyframes dotPulse {
-  0%, 100% {
-    transform: scale(1);
-    box-shadow: 0 0 10px var(--pink);
-  }
-  50% {
-    transform: scale(1.4);
-    box-shadow: 0 0 20px var(--pink), 0 0 40px rgba(255, 110, 199, 0.3);
-  }
-}
-
-/* ── LIENS ── */
 .navbar-links {
   display: flex;
-  gap: 36px;
+  gap: 8px;
   list-style: none;
 }
 
@@ -61,45 +41,90 @@
   font-size: 13px;
   font-weight: 500;
   color: var(--text-muted);
-  transition: color 0.25s ease;
+  padding: 6px 14px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
 }
 
 .navbar-links a:hover {
-  color: var(--candy-purple);
+  color: var(--primary);
+  background: rgba(5, 150, 105, 0.08);
 }
 
-/* ── BOUTON ── */
+.nav-link-active {
+  color: var(--primary) !important;
+  background: rgba(5, 150, 105, 0.1) !important;
+  font-weight: 600 !important;
+}
+
 .navbar-cta {
-  background: rgba(168, 85, 247, 0.15);
-  border: 1px solid rgba(168, 85, 247, 0.35);
-  color: #e9d5ff;
+  background: var(--primary);
+  border: none;
+  color: white;
   font-family: var(--font-display);
   font-size: 13px;
   font-weight: 600;
-  padding: 9px 22px;
+  padding: 8px 20px;
   border-radius: 100px;
-  transition: all 0.28s ease;
-  letter-spacing: 0.4px;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(5, 150, 105, 0.3);
 }
 
 .navbar-cta:hover {
-  background: rgba(168, 85, 247, 0.3);
-  border-color: rgba(168, 85, 247, 0.7);
-  box-shadow: 0 0 20px rgba(168, 85, 247, 0.25);
-}
-/* Lien actif dans la navbar */
-.nav-link-active {
-  color: #34d399 !important;
-  position: relative;
+  background: var(--accent);
+  transform: translateY(-1px);
 }
 
-.nav-link-active::after {
-  content: '';
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, #10b981, #06b6d4);
+.navbar-user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.navbar-avatar {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  border: 2px solid var(--primary-light);
+  object-fit: cover;
+}
+
+.navbar-username {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-1);
+}
+
+.navbar-signout {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  font-family: var(--font-body);
+  font-size: 12px;
+  padding: 6px 14px;
   border-radius: 100px;
+  transition: all 0.2s;
+}
+
+.navbar-signout:hover {
+  border-color: #f87171;
+  color: #ef4444;
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0 16px;
+    flex-wrap: wrap;
+    height: auto;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    gap: 10px;
+  }
+  .navbar-links {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    padding-top: 8px;
+    border-top: 1px solid var(--border);
+  }
 }
