@@ -60,4 +60,25 @@
   .navbar { padding: 0 16px; }
   .navbar-links { display: none; }
 }
- 
+ .navbar-auth-btns {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.navbar-login-btn {
+  background: transparent;
+  border: 1px solid var(--border-2);
+  color: var(--text-3);
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 7px 16px;
+  border-radius: var(--radius-md);
+  transition: all 0.15s ease;
+}
+
+.navbar-login-btn:hover {
+  border-color: var(--blue);
+  color: var(--blue);
+}

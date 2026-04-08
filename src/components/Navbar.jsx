@@ -1,25 +1,29 @@
+
+ 
+
 import { Link, useLocation } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
- 
+
 function Navbar() {
   const location = useLocation()
   const { user, isLoggedIn, signOut } = useAuth()
- 
+
   function isActive(path) { return location.pathname === path }
- 
+
   return (
     <nav className="navbar">
       <Link to="/" className="navbar-logo">
         CodePulse
         <span className="navbar-logo-dot"></span>
       </Link>
- 
+
       <ul className="navbar-links">
         <li><Link to="/dashboard" className={isActive('/dashboard') ? 'nav-link-active' : ''}>Veille</Link></li>
         <li><Link to="/sources"   className={isActive('/sources')   ? 'nav-link-active' : ''}>Sources</Link></li>
         <li><Link to="/favoris"   className={isActive('/favoris')   ? 'nav-link-active' : ''}>Favoris</Link></li>
+        <li><Link to="/apprendre" className={isActive('/apprendre') ? 'nav-link-active' : ''}>Apprendre</Link></li>
       </ul>
- 
+
       <div className="navbar-right">
         {isLoggedIn ? (
           <div className="navbar-user">
@@ -32,13 +36,18 @@ function Navbar() {
             <button className="navbar-signout" onClick={signOut}>Déconnexion</button>
           </div>
         ) : (
-          <Link to="/login">
-            <button className="navbar-cta">Se connecter</button>
-          </Link>
+          <div className="navbar-auth-btns">
+            <Link to="/login?mode=login">
+              <button className="navbar-login-btn">Se connecter</button>
+            </Link>
+            <Link to="/login?mode=signup">
+              <button className="navbar-cta">S'inscrire</button>
+            </Link>
+          </div>
         )}
       </div>
     </nav>
   )
 }
- 
+
 export default Navbar

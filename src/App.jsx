@@ -22,7 +22,9 @@ import './styles/Sources.css'
 import './styles/Login.css'
 import './styles/ArticleDrawer.css'
 import './styles/Footer.css'
- 
+import LearnPage from './pages/LearnPage'
+import './styles/LearnPage.css'
+
 function LandingPage() {
   return (
     <>
@@ -58,6 +60,7 @@ function AppContent() {
           <Route path="/sources"       element={<PageWithFooter><Sources /></PageWithFooter>} />
           <Route path="/login"         element={<Login />} />
           <Route path="/auth/callback" element={<AuthCallback />} />
+          <Route path="/apprendre" element={<PageWithFooter><LearnPage /></PageWithFooter>} />
         </Routes>
       </div>
     </>
