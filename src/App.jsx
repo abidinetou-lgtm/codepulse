@@ -4,9 +4,9 @@ import { AuthProvider } from './context/AuthContext'
 import { FavoritesProvider } from './context/FavoritesContext'
 import Background   from './components/Background'
 import Navbar       from './components/Navbar'
+import Footer       from './components/Footer'
 import Hero         from './components/Hero'
 import NewsSection  from './components/NewsSection'
-import Features     from './components/Features'
 import Dashboard    from './pages/Dashboard'
 import Favorites    from './pages/Favorites'
 import Sources      from './pages/Sources'
@@ -16,45 +16,54 @@ import './styles/Background.css'
 import './styles/Navbar.css'
 import './styles/Hero.css'
 import './styles/NewsSection.css'
-import './styles/Features.css'
 import './styles/Dashboard.css'
 import './styles/Favorites.css'
 import './styles/Sources.css'
 import './styles/Login.css'
-import './styles/Responsive.css'
 import './styles/ArticleDrawer.css'
-
+import './styles/Footer.css'
+ 
 function LandingPage() {
   return (
     <>
       <Hero />
       <NewsSection />
+      <Footer />
     </>
   )
 }
-
-function AppContent() {
-  const location = useLocation()
-  const hideBackground = ['/login'].includes(location.pathname)
-
+ 
+function PageWithFooter({ children }) {
   return (
     <>
-      {!hideBackground && <Background />}
+      {children}
+      <Footer />
+    </>
+  )
+}
+ 
+function AppContent() {
+  const location = useLocation()
+  const noBackground = ['/login'].includes(location.pathname)
+ 
+  return (
+    <>
+      {!noBackground && <Background />}
       <div className="app-content">
         <Navbar />
         <Routes>
-          <Route path="/"                element={<LandingPage />} />
-          <Route path="/dashboard"       element={<Dashboard />} />
-          <Route path="/favoris"         element={<Favorites />} />
-          <Route path="/sources"         element={<Sources />} />
-          <Route path="/login"           element={<Login />} />
-          <Route path="/auth/callback"   element={<AuthCallback />} />
+          <Route path="/"              element={<LandingPage />} />
+          <Route path="/dashboard"     element={<PageWithFooter><Dashboard /></PageWithFooter>} />
+          <Route path="/favoris"       element={<PageWithFooter><Favorites /></PageWithFooter>} />
+          <Route path="/sources"       element={<PageWithFooter><Sources /></PageWithFooter>} />
+          <Route path="/login"         element={<Login />} />
+          <Route path="/auth/callback" element={<AuthCallback />} />
         </Routes>
       </div>
     </>
   )
 }
-
+ 
 function App() {
   return (
     <BrowserRouter>
@@ -66,5 +75,5 @@ function App() {
     </BrowserRouter>
   )
 }
-
+ 
 export default App
