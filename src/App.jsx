@@ -24,6 +24,7 @@ import './styles/ArticleDrawer.css'
 import './styles/Footer.css'
 import LearnPage from './pages/LearnPage'
 import './styles/LearnPage.css'
+import NewsletterPrompt from './components/NewsletterPrompt'
 
 function LandingPage() {
   return (
