@@ -59,4 +59,70 @@
  
 @media (max-width: 1024px) { .dash-grid { grid-template-columns: repeat(2,1fr); } .dash-hero { padding: 24px; } .dash-filters-bar { padding: 10px 24px; } }
 @media (max-width: 640px) { .dash-grid { grid-template-columns: 1fr; } .dash-hero-title { font-size: 22px; } .dash-filters-bar { overflow-x: auto; flex-wrap: nowrap; } }
- 
+ /* ── Hero masqué au scroll ── */
+.dash-hero {
+  transition: max-height 0.3s ease, padding 0.3s ease, opacity 0.3s ease;
+  max-height: 200px;
+  overflow: hidden;
+  opacity: 1;
+}
+
+.dash-hero-hidden {
+  max-height: 0;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  opacity: 0;
+}
+
+/* ── Barre de filtres sticky normale ── */
+.dash-filters-bar {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 40px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  position: sticky;
+  top: 58px;
+  z-index: 50;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ── Mode compact — flottant et rétréci ── */
+.dash-filters-compact {
+  top: 10px !important;
+  margin: 0 20px;
+  padding: 8px 16px !important;
+  border-radius: 100px !important;
+  border: 1px solid var(--border-2) !important;
+  box-shadow: 0 4px 20px rgba(14,165,233,0.15) !important;
+  background: rgba(255,255,255,0.95) !important;
+  backdrop-filter: blur(12px);
+  flex-wrap: nowrap !important;
+  overflow-x: auto;
+  gap: 6px !important;
+  scrollbar-width: none;
+}
+
+.dash-filters-compact::-webkit-scrollbar { display: none; }
+
+/* Boutons plus petits en mode compact */
+.dash-filters-compact .filter-btn {
+  font-size: 11px !important;
+  padding: 4px 11px !important;
+  white-space: nowrap;
+}
+
+.dash-filters-compact .tag-btn {
+  font-size: 10px !important;
+  padding: 4px 10px !important;
+  white-space: nowrap;
+}
+
+.dash-filters-brand {
+  flex-shrink: 0;
+  padding-right: 8px;
+  border-right: 1px solid var(--border);
+  margin-right: 4px;
+}

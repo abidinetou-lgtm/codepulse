@@ -63,7 +63,10 @@ function AppContent() {
           <Route path="/auth/callback" element={<AuthCallback />} />
           <Route path="/apprendre" element={<PageWithFooter><LearnPage /></PageWithFooter>} />
         </Routes>
+        
       </div>
+      {/* Notification newsletter après connexion */}
+        <NewsletterPrompt />
     </>
   )
 }

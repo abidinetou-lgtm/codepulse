@@ -126,6 +126,18 @@ export function useArticles(source = 'all', tag = 'javascript') {
           } catch (e) { console.warn('HackerNews fetch failed:', e.message) }
         }
 
+        // Fetch NewsAPI si demandé
+      if (source === 'all' || source === 'newsapi') {
+      try {
+      const query = TAG_TO_DEVTO[tag] || tag
+      const res   = await fetch(`${API_URL}/newsapi/articles?q=${query} programming`)
+      const data  = await res.json()
+      if (data.success && data.data?.length) {
+      results = [...results, ...data.data]
+      }
+      } catch(e) { console.warn('NewsAPI fetch failed:', e.message) }
+    }
+
         // Si on a des résultats → on les affiche
         // Sinon → on affiche les données de secours
         if (!cancelled) setArticles(results.length ? results : FALLBACK)
