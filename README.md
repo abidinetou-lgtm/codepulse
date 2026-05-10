@@ -1,23 +1,27 @@
 # CodePulse 🚀
 
-**Application de veille technologique full-stack** — GitHub, Dev.to et Hacker News centralisés en temps réel.
+**Agrégateur d'actualités tech en temps réel** — Dev.to, Hacker News et sources médias mondiales centralisés dans une interface moderne et responsive.
 
 🌐 **Demo live** → [codepulse-rouge.vercel.app](https://codepulse-rouge.vercel.app)
+🔧 **Backend** → [codepulse-api sur Render](https://codepulse-api-umun.onrender.com/api/health)
 
 ---
 
 ## Présentation
 
-CodePulse agrège les meilleures sources d'actualité tech en un seul endroit. Plus besoin de jongler entre 5 onglets pour faire sa veille — tout est centralisé, filtrable, et sauvegardable en favoris.
+CodePulse est parti d'un script d'automatisation basique et a évolué en une vraie application web full-stack déployée en production. Le but : centraliser la veille tech au même endroit sans jongler entre 5 onglets.
 
 ### Fonctionnalités
-- 📡 **Flux en temps réel** — GitHub Trending, Dev.to, Hacker News
+
+- 📡 **Flux en temps réel** — Dev.to, Hacker News, Tech News (NewsAPI)
 - 🔍 **Filtres intelligents** — par source et par technologie (#react, #ai, #node...)
-- ❤️ **Système de favoris** — sauvegardé en base de données
-- 🔐 **Authentification** — Google OAuth + Magic Link email (sans mot de passe)
+- ❤️ **Favoris persistants** — sauvegardés en base PostgreSQL avec RLS
+- 🔐 **Auth sans mot de passe** — Google OAuth + Magic Link email
 - 📬 **Newsletter opt-in** — résumé tous les 2 jours
 - 📚 **Guide interactif** — apprendre HTML, CSS, JavaScript dans l'app
-- 📱 **Responsive** — adapté mobile, tablette et desktop
+- 🍪 **Cookie banner RGPD** — consentement conforme
+- 📱 **Responsive** — mobile, tablette et desktop
+- ⚡ **Barre de filtres dynamique** — devient flottante et compacte au scroll
 
 ---
 
@@ -25,53 +29,54 @@ CodePulse agrège les meilleures sources d'actualité tech en un seul endroit. P
 
 | Couche | Technologies |
 |---|---|
-| **Frontend** | React 19, React Router v6, Context API |
-| **Styling** | CSS3 custom (aucune lib UI) |
-| **Backend** | Node.js, Express, REST API |
+| **Framework** | React 19 |
+| **Routing** | React Router v6 |
+| **State** | Context API + Hooks personnalisés |
 | **Auth & DB** | Supabase (PostgreSQL + Auth) |
-| **APIs** | GitHub Trending, Dev.to API, Hacker News Firebase API |
-| **Déploiement** | Vercel (frontend) + Render (backend) |
-| **Versionning** | Git, GitHub |
+| **Styling** | CSS3 custom — zéro librairie UI |
+| **Build** | Vite |
+| **Déploiement** | Vercel (CI/CD automatique via GitHub) |
 
 ---
 
-## Architecture
-codepulse/                    ← Frontend React
+## Structure du projet
+
+```
+codepulse/
+├── public/
+│   └── favicon.svg
 ├── src/
-│   ├── components/           ← Composants réutilisables
-│   │   ├── Navbar.jsx        ← Navigation + menu profil
-│   │   ├── Hero.jsx          ← Landing page hero
-│   │   ├── NewsSection.jsx   ← Cartes d'actu scroll horizontal
-│   │   ├── ArticleDrawer.jsx ← Panneau latéral article
-│   │   ├── Background.jsx    ← Arrière-plan animé
-│   │   ├── Footer.jsx        ← Pied de page
-│   │   └── NewsletterPrompt.jsx ← Modal newsletter
+│   ├── components/
+│   │   ├── Navbar.jsx          # Navigation + menu profil déroulant
+│   │   ├── Hero.jsx            # Landing page avec animation canvas
+│   │   ├── NewsSection.jsx     # Cartes d'actu en scroll horizontal
+│   │   ├── ArticleDrawer.jsx   # Panneau latéral article
+│   │   ├── Background.jsx      # Arrière-plan animé (blobs)
+│   │   ├── Footer.jsx          # Pied de page avec contact
+│   │   ├── NewsletterPrompt.jsx# Modal newsletter post-connexion
+│   │   └── CookieBanner.jsx    # Bannière RGPD
 │   ├── pages/
-│   │   ├── Dashboard.jsx     ← Page veille principale
-│   │   ├── Favorites.jsx     ← Favoris sauvegardés
-│   │   ├── Sources.jsx       ← Sources disponibles
-│   │   ├── Login.jsx         ← Connexion / Inscription
-│   │   ├── LearnPage.jsx     ← Guide interactif HTML/CSS/JS
-│   │   └── AuthCallback.jsx  ← Redirect après OAuth
+│   │   ├── Dashboard.jsx       # Page veille (grille d'articles)
+│   │   ├── Favorites.jsx       # Favoris sauvegardés
+│   │   ├── Sources.jsx         # Sources disponibles
+│   │   ├── Login.jsx           # Connexion / Inscription
+│   │   ├── LearnPage.jsx       # Guide interactif HTML/CSS/JS
+│   │   └── AuthCallback.jsx    # Redirect après OAuth
 │   ├── context/
-│   │   ├── AuthContext.jsx   ← État global d'authentification
-│   │   └── FavoritesContext.jsx ← État global des favoris
+│   │   ├── AuthContext.jsx     # État global authentification
+│   │   └── FavoritesContext.jsx# État global favoris
 │   ├── hooks/
-│   │   └── useArticles.js    ← Hook fetch des articles
-│   └── lib/
-│       └── supabase.js       ← Client Supabase
-codepulse-api/                ← Backend Express
-├── src/
-│   ├── routes/
-│   │   ├── devto.js          ← Route GET /api/devto/articles
-│   │   ├── github.js         ← Route GET /api/github/trending
-│   │   └── hackernews.js     ← Route GET /api/hackernews/top
-│   ├── services/
-│   │   ├── devtoService.js   ← Logique appel Dev.to API
-│   │   ├── githubService.js  ← Logique appel GitHub API
-│   │   └── hackerNewsService.js ← Logique appel HN API
-│   └── cache.js              ← Cache mémoire 5 minutes
-└── server.js                 ← Point d'entrée Express
+│   │   └── useArticles.js      # Hook fetch des articles (3 sources)
+│   ├── lib/
+│   │   └── supabase.js         # Client Supabase
+│   ├── styles/                 # CSS séparé par composant
+│   ├── App.jsx                 # Composant racine + routes
+│   ├── main.jsx                # Point d'entrée React
+│   └── index.css               # Variables CSS globales
+├── vercel.json                 # Rewrites pour React Router
+├── index.html
+└── package.json
+```
 
 ---
 
@@ -80,40 +85,32 @@ codepulse-api/                ← Backend Express
 ### Prérequis
 - Node.js v18+
 - Un compte [Supabase](https://supabase.com) (gratuit)
+- Une clé [NewsAPI](https://newsapi.org) (gratuite — 100 req/jour)
 
-### 1. Cloner les repos
+### 1. Cloner le repo
 
 ```bash
 git clone https://github.com/abidinetou-lgtm/codepulse.git
-git clone https://github.com/abidinetou-lgtm/codepulse-api.git
-```
-
-### 2. Démarrer le backend
-
-```bash
-cd codepulse-api
-npm install
-```
-
-Crée `.env` :
-PORT=3001
-
-```bash
-npm run dev
-# → http://localhost:3001
-```
-
-### 3. Démarrer le frontend
-
-```bash
 cd codepulse
+```
+
+### 2. Installer les dépendances
+
+```bash
 npm install
 ```
 
-Crée `.env.local` :
+### 3. Configurer les variables d'environnement
+
+Crée un fichier `.env.local` à la racine :
+
+```env
 VITE_API_URL=http://localhost:3001/api
 VITE_SUPABASE_URL=https://xxxx.supabase.co
 VITE_SUPABASE_ANON_KEY=eyJ...
+```
+
+### 4. Démarrer
 
 ```bash
 npm run dev
@@ -124,42 +121,84 @@ npm run dev
 
 ## Variables d'environnement
 
-### Frontend (`codepulse/.env.local`)
-| Variable | Description |
-|---|---|
-| `VITE_API_URL` | URL du backend Express |
-| `VITE_SUPABASE_URL` | URL de ton projet Supabase |
-| `VITE_SUPABASE_ANON_KEY` | Clé publique Supabase |
+| Variable | Description | Obligatoire |
+|---|---|---|
+| `VITE_API_URL` | URL du backend Express | ✅ |
+| `VITE_SUPABASE_URL` | URL de ton projet Supabase | ✅ |
+| `VITE_SUPABASE_ANON_KEY` | Clé publique Supabase | ✅ |
 
-### Backend (`codepulse-api/.env`)
-| Variable | Description |
-|---|---|
-| `PORT` | Port du serveur (défaut: 3001) |
+> ⚠️ Ne jamais commiter le fichier `.env.local` — il est dans `.gitignore`
 
 ---
 
-## Déploiement
+## Déploiement Vercel
 
-| Service | Projet | URL |
-|---|---|---|
-| **Vercel** | `codepulse` (frontend) | codepulse-rouge.vercel.app |
-| **Render** | `codepulse-api` (backend) | codepulse-api-umun.onrender.com |
+Le déploiement est automatique à chaque `git push` sur `main`.
+
+```bash
+git add .
+git commit -m "feat: ma modification"
+git push origin main
+# → Vercel détecte le push et redéploie automatiquement
+```
+
+Le fichier `vercel.json` configure les rewrites pour que React Router fonctionne correctement sur Vercel :
+
+```json
+{
+  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+}
+```
 
 ---
 
-## APIs utilisées
+## Base de données Supabase
 
-| API | Documentation | Authentification |
-|---|---|---|
-| Dev.to | [docs.forem.com](https://developers.forem.com/api) | Publique (sans clé) |
-| GitHub Trending | Non officielle | Publique |
-| Hacker News | [github.com/HackerNews/API](https://github.com/HackerNews/API) | Publique (sans clé) |
+Tables créées :
+
+```sql
+-- Profils utilisateurs (créé automatiquement à l'inscription)
+CREATE TABLE profiles (
+  id                 uuid PRIMARY KEY,
+  email              text,
+  full_name          text,
+  avatar_url         text,
+  newsletter_enabled boolean DEFAULT false
+);
+
+-- Favoris (protégés par Row Level Security)
+CREATE TABLE favorites (
+  id          uuid DEFAULT uuid_generate_v4() PRIMARY KEY,
+  user_id     uuid REFERENCES profiles(id),
+  article_id  text,
+  title       text,
+  url         text,
+  source      text,
+  cover       text,
+  created_at  timestamp DEFAULT now()
+);
+
+-- RLS : chaque utilisateur accède uniquement à ses propres données
+ALTER TABLE favorites ENABLE ROW LEVEL SECURITY;
+```
+
+---
+
+## Sécurité
+
+- ✅ Aucun secret dans le code source
+- ✅ `.env` dans `.gitignore`
+- ✅ RLS Supabase sur toutes les tables utilisateur
+- ✅ Auth sans mot de passe (Magic Link + OAuth)
+- ✅ HTTPS automatique via Vercel
+- ✅ Cookie banner RGPD
 
 ---
 
 ## Auteur
 
 **Jimel Abidine Touré**
+
 - 📧 [jimeltoure@gmail.com](mailto:jimeltoure@gmail.com)
 - 💼 [LinkedIn](https://www.linkedin.com/in/jimel-abidine-toure-56007139a)
 - 🐙 [GitHub](https://github.com/abidinetou-lgtm)
