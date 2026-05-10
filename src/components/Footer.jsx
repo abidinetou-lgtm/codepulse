@@ -42,7 +42,9 @@ function Footer() {
         <div className="footer-col">
           <h4 className="footer-col-title">Sources</h4>
           <ul className="footer-links">
-            <li><a href="https://github.com/trending" target="_blank" rel="noopener noreferrer">GitHub Trending</a></li>
+          
+          
+
             <li><a href="https://dev.to" target="_blank" rel="noopener noreferrer">Dev.to</a></li>
             <li><a href="https://news.ycombinator.com" target="_blank" rel="noopener noreferrer">Hacker News</a></li>
           </ul>

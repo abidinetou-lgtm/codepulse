@@ -63,7 +63,6 @@ function DataStreamIllustration() {
 
     // Labels des sources affichés en haut des flux
     const LABELS = [
-      { xRatio: 0.12, text: 'GitHub',      color: '#10b981' },
       { xRatio: 0.50, text: 'Dev.to',      color: '#0ea5e9' },
       { xRatio: 0.88, text: 'Hacker News', color: '#059669' },
     ]
@@ -255,7 +254,7 @@ function Hero() {
 
         {/* Description courte */}
         <p className="hero-desc">
-          CodePulse agrège <strong>GitHub, Dev.to, et Hacker News</strong> pour
+          CodePulse agrège <strong>Dev.to, Hacker News et Tech News</strong> pour
           te donner une veille tech centralisée — JS, React, IA, Node.js —
           tout au même endroit.
         </p>

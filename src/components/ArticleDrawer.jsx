@@ -19,7 +19,6 @@ function ArticleDrawer({ article, onClose }) {
   if (!article) return null
 
   const sourceColors = {
-    github: '#34d399',
     devto: '#22d3ee',
     hackernews: '#60a5fa',
   }

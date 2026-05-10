@@ -16,7 +16,7 @@ const FEATURES = [
     tagBg: 'rgba(255,110,199,0.1)',
     tagBorder: 'rgba(255,110,199,0.2)',
     title: 'Agrégation multi-sources',
-    desc: 'GitHub, Dev.to, Hacker News, NPM — toutes tes sources préférées centralisées en un seul flux intelligent et mis à jour en temps réel.',
+    desc: ' Dev.to, Hacker News, NPM — toutes tes sources préférées centralisées en un seul flux intelligent et mis à jour en temps réel.',
     borderHover: 'rgba(255,110,199,0.35)',
     glowColor: 'rgba(255,110,199,0.07)',
   },
